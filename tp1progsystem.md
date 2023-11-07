@@ -59,7 +59,8 @@ En-tête à inclure :
                          └─{gnome-terminal-}(7146)
 
 ![Capture d’écran du 2023-11-07 18-13-49](https://github.com/CharlesMld/cours/assets/64355512/c47791fe-a6f8-4e8f-a430-f383b1dabf7c)
-![image](https://github.com/CharlesMld/cours/assets/64355512/72a7cbd6-e1a8-42d7-bad3-5997c0042916)
+![image](https://github.com/CharlesMld/cours/assets/64355512/424321de-b54a-43fd-9d8f-9bee4b94e763)
+
 
 
 
