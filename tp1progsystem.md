@@ -62,7 +62,43 @@ En-tête à inclure :
 ![image](https://github.com/CharlesMld/cours/assets/64355512/424321de-b54a-43fd-9d8f-9bee4b94e763)
 
 
+# Exercice 5
+![image](https://github.com/CharlesMld/cours/assets/64355512/bde0a146-8d83-48a3-88a2-6dbb198377ce)
+![image](https://github.com/CharlesMld/cours/assets/64355512/8875bdd2-f1fb-4395-8f1f-6de0f5138339)
 
+# Exercice 6
+![image](https://github.com/CharlesMld/cours/assets/64355512/1c5cc62d-6dc2-436d-aeb3-f5bfca82dbad)
+
+
+
+
+
+
+
+
+
+
+
+
+# Exercice 8
+
+Dans un système à temps partagé de type Linux, la création de processus est un élément essentiel du fonctionnement du système d'exploitation. Voici comment ce processus fonctionne :
+
+1. Demande de création : La création d'un processus commence par une demande de création émanant d'un autre processus existant, généralement via un appel système comme "fork" ou "exec". Cette demande peut provenir d'un utilisateur ou d'un programme.
+
+2. Allocation d'un espace d'adressage : Une fois la demande de création reçue, le système d'exploitation alloue un espace d'adressage pour le nouveau processus. Cela inclut la création d'une copie du tableau des descripteurs de fichiers, de la table des signaux et d'autres structures de données nécessaires.
+
+3. Duplication du processus parent : Le processus parent est copié pour créer le processus enfant. Cette copie comprend le code, les données et l'état du processus parent, et les deux processus partagent initialement la même mémoire physique. Cependant, grâce à la mémoire virtuelle, chaque processus perçoit sa propre copie privée de la mémoire.
+
+4. Modification de l'espace d'adressage : Le processus enfant peut ensuite modifier son espace d'adressage, par exemple en chargeant un nouveau programme avec l'appel système "exec". Cela permet au processus enfant de s'exécuter avec un code différent de celui du processus parent.
+
+5. Planification et exécution : Une fois le processus enfant créé et configuré, le planificateur du noyau décide du moment où le processus enfant et le processus parent seront exécutés. Le système Linux utilise un ordonnanceur pour attribuer du temps CPU aux processus en fonction de leur priorité et de leur utilisation. Cela permet un partage équitable des ressources entre les processus.
+
+6. Communication : Les processus peuvent communiquer entre eux en utilisant des mécanismes tels que les tubes, les signaux, les sockets ou la mémoire partagée, ce qui permet une coopération et une coordination entre les processus.
+
+7. Terminaison : Les processus peuvent se terminer volontairement en utilisant un appel système comme "exit", ou être arrêtés de manière involontaire, par exemple en raison d'une erreur. Une fois un processus terminé, le système d'exploitation libère les ressources associées.
+
+Le système à temps partagé de type Linux permet une exécution simultanée de plusieurs processus, garantissant que chaque processus a sa part équitable de temps CPU. La création de processus permet de gérer de manière flexible les tâches et les applications, contribuant ainsi à la stabilité et à l'efficacité du système.
 
 
 
