@@ -71,6 +71,27 @@ int main(void)
 }
 
 ## 4
-Le processus fils est alors terminé
+Le processus fils est alors terminé mais dans un état zombie car le père n'a pas encore acquitté son fils
 
 # Exercice 4
+Tous les processus sont zombies jusqu'à ce que le père les acquitte avec le wait.
+Dans cet exemple, beaucoup trop de processus zombies sans être acquittés => saturation
+
+# Exercice 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
