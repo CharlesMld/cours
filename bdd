@@ -176,6 +176,10 @@ END;
      where Produit.id='p2'
      )
 
+On aurait aussi pu définir une variable avec la commande:
+SET @produit = 'p2'
+ou même
+select @produit := valeur from table
    
 
 
