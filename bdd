@@ -1,0 +1,148 @@
+# TP1
+use mysql
+select * from mysql.user where user='charlo';
+create database films ;
+Grant all privileges on films.* to charlo@'%';
+flush privileges; (update des privileges)
+exit; (sortir)
+
+select * from artiste; (afficher les attributs et leurs valeurs de la table artiste)
+show tables; (afficher les tables (entités) de la bdd)
+update artiste set date_naissance=1943-03-31 where nom=Walken; (mise à jour de la date de naissance de l'occurence d'attribut de nom Walken)
+insert into artiste values ('Beckinsale','Kate','1973-07-27'); (insertion d'une occurence d'entité artiste)
+delete from artiste where date_naissance = '1914-01-05'; (suppression d'une occurence d'entité artiste)
+CREATE TABLE Film (titre VARCHAR(30) NOT NULL, annee INT NOT NULL, nom_realisateur VARCHAR(30) NOT NULL, prenom_realisateur VARCHAR(30) NOT NULL, genre VARCHAR(30), PRIMARY KEY (titre, annee), FOREIGN KEY (nom_realisateur, prenom_realisateur) REFERENCES artiste(nom, prenom)); (création de la table Film et définition de ses attributs)
+
+A noter : si on essaie de créer un film avec un réalisateur dont le nom n'est pas dans la table artiste, erreur. En effet, les attributs nom_realisateur et prenom_realisateur héritent de la clé (nom, prenom) de la table artiste il faut donc d'abord créer un artiste avec ces occurences puis un film avec un réalisateur au nom de cet artiste
+
+describe 'table'; //affiche le les détails de 'table' par exemple, pour la table Film:
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| titre              | varchar(30) | NO   | PRI | NULL    |       |
+| annee              | int         | NO   | PRI | NULL    |       |
+| nom_realisateur    | varchar(30) | NO   | MUL | NULL    |       |
+| prenom_realisateur | varchar(30) | NO   |     | NULL    |       |
+| genre              | varchar(30) | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+
+A voir : comment récupérer ma bdd...
+
+Lancement manuel de la base : mysqld_safe &
+Lancement automatique de la base : application start mysql
+
+Arrêt manuel de la base : mysqladmin -u root -p shutdown
+Arrêt automatique de la base : application stop mysql
+
+État de la base : mysqladmin -u root -p status
+
+Lancement du client : mysql -u <user> -p
+ avec user=root dans un premier temps et les comptes que vous avez créé après.
+
+Pour changer le mot de passe de root :
+ mysqladmin -u root -p password 'new-password'
+ mysql -u root -p
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';
+
+Attention par défaut, il n'y a pas de mot de passe lors de l'initialisation de la base
+(l'option "-p" peut être omise)
+ 
+En cas d'erreur, il faut consulter le fichier de log situe dans :
+ répertoire d'installation/mysql/log/mysqld.log
+
+Les paramètres de la base sont dans le fichier $HOME/.my.cnf
+
+Outil graphique d'accès à la base (attention à bien configurer le numéro du port
+pour la connexion à la base) :
+  
+ mysql-workbench
+
+Si vous utilisez php, attention à bien changer la variable mysql.default_socket.
+
+Cas d'erreur connu :
+
+Mysqld se termine en erreur lors du lancement avec le message suivant dans le
+fichier log :
+ ...[Server] Can't start server: Bind on TCP/IP port: Address already in use
+ ...[Server] Do you already have another mysqld server running on port: 3306 ?
+ ...[Server] Aborting
+ create table Fournisseur(id VARCHAR(2) , nom VARCHAR(30), remise INT, ville VARCHAR(30));
+create table Produit(id VARCHAR(2), nom VARCHAR(30), couleur VARCHAR(30), origine VARCHAR(30));
+create table Fourniture(fournisseur VARCHAR(30), produit VARCHAR(30), quantite INT, FOREIGN KEY (fournisseur) references fournisseur(id), foreign key (produit) references produit(id));
+
+ Ceci indique qu'un serveur mysql est déjà lancé sur cette machine. Vous pouvez
+ contourner le problème en remplaçant dans $HOME/.my.cnf les valeurs de port par
+ une autre valeur (bon il faut trouver un port de libre :-) ).
+ Attention, il y a 2 occurrences du paramètre port dans le fichier).
+
+Pour plus d'information, https://dev.mysql.com/doc/refman/8.0/en/
+
+# TP2
+
+## 1 - Mise en place bdd
+CREATE TABLE Fournisseur (id VARCHAR(2), nom VARCHAR(30), remise INT, ville VARCHAR(30), PRIMARY KEY (id)); 
+CREATE TABLE Produit (id VARCHAR(2), nom VARCHAR(30), couleur VARCHAR(30), origine VARCHAR(30), PRIMARY KEY (id)) ; 
+CREATE TABLE Fourniture (fournisseur VARCHAR(2), produit VARCHAR(2), quantite INT, FOREIGN KEY (fournisseur) REFERENCES Fournisseur(id), FOREIGN KEY (produit) REFERENCES Produit(id)); 
+
+INSERT INTO Fournisseur VALUES ('f1','Bornibus', '5', 'Paris');
+INSERT INTO Fournisseur VALUES ('f2','Mercier', '7', 'Paris');
+INSERT INTO Fournisseur VALUES ('f3','Colbert', '3', 'Reims');
+INSERT INTO Fournisseur VALUES ('f4','Bossuet', '6', 'Dijon');
+INSERT INTO Fournisseur VALUES ('f5','Tanguy', '10', 'Riec');
+INSERT INTO Fournisseur VALUES ('f6','Dupont', '0', 'Paris');
+
+INSERT INTO Produit VALUES ('p1','cassis', 'rouge', 'Dijon');
+INSERT INTO Produit VALUES ('p2','champagne', 'blanc', 'Reims');
+INSERT INTO Produit VALUES ('p3','huitre', 'vert', 'Riec');
+INSERT INTO Produit VALUES ('p4','moutarde', 'jaune', 'Dijon');
+INSERT INTO Produit VALUES ('p5','salade', 'vert', 'Nice');
+INSERT INTO Produit VALUES ('p6','cornichon', 'vert', 'Dijon');
+INSERT INTO Produit VALUES ('p7','muscadet', 'blanc', 'Nantes');
+
+INSERT INTO Fourniture VALUES ('f1','p1', '1');
+INSERT INTO Fourniture VALUES ('f1','p4', '1');
+INSERT INTO Fourniture VALUES ('f1','p6', '2');
+INSERT INTO Fourniture VALUES ('f1','p5', '8');
+INSERT INTO Fourniture VALUES ('f2','p2', '1');
+INSERT INTO Fourniture VALUES ('f4','p4', '1');
+INSERT INTO Fourniture VALUES ('f3','p2', '5');
+INSERT INTO Fourniture VALUES ('f3','p4', '1');
+INSERT INTO Fourniture VALUES ('f4','p6', '3');
+INSERT INTO Fourniture VALUES ('f4','p5', '7');
+INSERT INTO Fourniture VALUES ('f4','p4', '2');
+INSERT INTO Fourniture VALUES ('f4','p3', '7');
+INSERT INTO Fourniture VALUES ('f5','p3', '10');
+
+## 2 - Requêtes SQL
+4. UPDATE Fournisseur set nom='Jacques', remise = '10' where ville='Paris';
+5. select nom, ville from fournisseur
+   join Fourniture on Fourniture.fournisseur = Fournisseur.id
+   where produit='p4';
+6. select distinct Fournisseur.nom, Fournisseur.ville, Produit.nom
+   from Fournisseur
+   join Fourniture
+   on Fournisseur.id = Fourniture.fournisseur
+   join Produit
+   on Fourniture.produit = Produit.id ;
+7. select distinct nom
+   from Produit
+   join Fourniture
+   on Produit.id = Fourniture.produit;
+8. On a essayé : except (select nom
+                         from Produit 
+                         join Fourniture
+                         on Produit.id = Fourniture.produit);
+
+# TP3 - 
+
+2. SELECT prenom, nom
+   FROM Artiste
+   WHERE datenaiss > '1970-01-01';
+
+
+
+
+
+
+
+
