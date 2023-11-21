@@ -123,7 +123,7 @@ INSERT INTO Fourniture VALUES ('f5','p3', '10');
    join Fourniture
    on Fournisseur.id = Fourniture.fournisseur
    join Produit
-   on Fourniture.produit = Produit.id ;
+   on Fourniture.produit = Produit.id ;7
 7. select distinct nom
    from Produit
    join Fourniture
@@ -133,11 +133,63 @@ INSERT INTO Fourniture VALUES ('f5','p3', '10');
                          join Fourniture
                          on Produit.id = Fourniture.produit);
 
-# TP3 - 
+# TP3
 
 2. SELECT prenom, nom
    FROM Artiste
    WHERE datenaiss > '1970-01-01';
+
+# TP4
+
+SET @name = 43;
+SET @total_tax = (SELECT SUM(tax) FROM taxable_transactions);
+
+CREATE PROCEDURE p(increment INT)
+BEGIN
+  DECLARE counter INT DEFAULT 0;
+  WHILE counter < 10 DO
+    -- ... do work ...
+    SET counter = counter + increment;
+  END WHILE;
+END;
+
+2. select Fournisseur.id, Fournisseur.nom, Fourniture.quantite from Fournisseur
+   join Fourniture on Fourniture.fournisseur=Fournisseur.id 
+   join Produit on Produit.id=Fourniture.produit
+   where Produit.id='p2';
+
+   select max(Fournisseur.remise) from Fournisseur
+   join Fourniture on Fourniture.fournisseur=Fournisseur.id
+   join Produit on Produit.id=Fourniture.produit
+   where Produit.id='p2';
+   *sinon on peut aussi faire*
+   SELECT Fournisseur.id, Fournisseur.nom, Fourniture.quantite
+   FROM Fourniture
+   JOIN Fournisseur ON Fourniture.fournisseur = Fournisseur.id
+   WHERE Fourniture.produit = 'p2';
+
+   select id, nom, ville from Fournisseur
+   where remise=(
+     select max(Fournisseur.remise) from Fournisseur
+     join Fourniture on Fourniture.fournisseur=Fournisseur.id
+     join Produit on Produit.id=Fourniture.produit
+     where Produit.id='p2'
+     )
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
