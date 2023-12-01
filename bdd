@@ -141,9 +141,11 @@ INSERT INTO Fourniture VALUES ('f5','p3', '10');
 
 # TP4
 
+Déclaration variable hors procédure
 SET @name = 43;
 SET @total_tax = (SELECT SUM(tax) FROM taxable_transactions);
 
+Déclarzation variable dans une procédure
 CREATE PROCEDURE p(increment INT)
 BEGIN
   DECLARE counter INT DEFAULT 0;
