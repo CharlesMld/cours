@@ -14,3 +14,12 @@ Ceci est normal car on sort le fichier test.sort.txt qui est déjà trié et on 
 
 cmilliau@ross-a-16:~/Sort$ sort -g /tmp/test.txt | diff -q - /tmp/test.sort.txt 
 Cette commande ne renvoit rien ce qui est normal car test.txt est maintenant trié par la fonction unix sort puis passé en pipe (correspond au -) à la fonction diff
+
+On peut aussi trier via un tri interne simple
+./bin/project -m demoSortSplit -i /tmp/test.txt -o /tmp/test.sort.txt
+Quand on fait la diff avec sort text.txt :
+sort -g /tmp/test.txt | diff -q - /tmp/test.sort.txt 
+il y a bien aucune diff entre les 2 fichiers
+
+# Recouvrement de code
+exec recouvre le code donc 
